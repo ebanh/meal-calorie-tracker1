@@ -1,4 +1,4 @@
-class UserDayMeal < ActiveRecord
+class UserDayMeal < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :meal

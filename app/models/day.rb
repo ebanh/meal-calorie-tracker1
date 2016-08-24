@@ -1,4 +1,4 @@
-class Day < ActiveRecord
+class Day < ActiveRecord::Base
 
   has_many :user_day_meals
   has_many :meals, through: :user_day_meals
