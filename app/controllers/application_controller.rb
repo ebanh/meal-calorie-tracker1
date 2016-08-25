@@ -31,5 +31,14 @@ class ApplicationController < Sinatra::Base
          redirect "/login"
        end
      end
+
+     def redirect_if_incorrect_user(user)
+       if user != current_user
+         flash[:message] = "You are not allowed to access another user's account."
+         redirect to "/users/#{current_user.slug}"
+       end
+     end
+
+
   end
 end
