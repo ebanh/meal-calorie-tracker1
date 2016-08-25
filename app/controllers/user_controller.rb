@@ -1,16 +1,17 @@
 require 'pry'
 class UserController < ApplicationController
 
-  get '/users/:slug' do
+  get "/users/:slug" do
+    redirect_if_not_logged_in
     @user = User.find_by_slug(params[:slug])
-    erb "/users/show"
+    erb :"/users/show"
   end
 
   get '/login' do
     if !logged_in?
       erb :"/users/login"
     else
-      erb :"/users/#{current_user.slug}"
+      redirect to "/users/#{current_user.slug}"
     end
   end
 
@@ -40,6 +41,11 @@ class UserController < ApplicationController
     else
       redirect to "/signup"
     end
+  end
+
+  get '/logoff' do
+    session.clear
+    redirect to "/login"
   end
 
 end
