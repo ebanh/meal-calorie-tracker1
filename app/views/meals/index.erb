@@ -2,11 +2,13 @@
 <h4>List of created meals:</h4>
 <br>
 
-<% @meals.each do |meal| %>
+<% @user.meals.each do |meal| %>
   <ul>
   <%= meal.name %>
-  - Calories: <%= meal.calories %>
+  - Calories: <%= meal.calories %><a href="/meals/edit"> <font size=1>edit</font></a>
   </ul>
 <% end %>
 <br>
 <h6>Create a <a href="/meals/new">Meal</a></h6>
+
+<a href="/users/<%= @user.slug %>"><h5>Return</h5></a>

@@ -22,14 +22,14 @@ ActiveRecord::Schema.define(version: 20160824044000) do
   create_table "meals", force: :cascade do |t|
     t.string   "name"
     t.integer  "calories"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_day_meals", force: :cascade do |t|
+  create_table "user_days", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "day_id"
-    t.integer  "meal_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -5,7 +5,7 @@ class MealController < ApplicationController
   end
 
   get '/meals' do
-    @meals = Meal.all
+    @user = current_user
     erb :"/meals/index"
   end
 
