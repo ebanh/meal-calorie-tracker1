@@ -10,7 +10,7 @@
 
     <nav>
       <% if logged_in? %>
-        &nbsp; Welcome <%= @user.username %>
+        &nbsp; Welcome <%= current_user.username %>
       <% end %>
     </nav>
 

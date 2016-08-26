@@ -5,7 +5,7 @@
 <% @user.meals.each do |meal| %>
   <ul>
   <%= meal.name %>
-  - Calories: <%= meal.calories %><a href="/meals/edit"> <font size=1>edit</font></a>
+  - Calories: <%= meal.calories %><a href="/meals/<%= meal.id %>/edit"> <font size=1>edit</font></a>
   </ul>
 <% end %>
 <br>
