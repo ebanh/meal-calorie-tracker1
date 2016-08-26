@@ -1,0 +1,12 @@
+<br>
+<h4>List of created meals:</h4>
+<br>
+
+<% @meals.each do |meal| %>
+  <ul>
+  <%= meal.name %>
+  - Calories: <%= meal.calories %>
+  </ul>
+<% end %>
+<br>
+<h6>Create a <a href="/meals/new">Meal</a></h6>
