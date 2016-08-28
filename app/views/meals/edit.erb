@@ -1,1 +1,17 @@
-Edit your meal
+<h4> Edit your meal </h4>
+<form action="/meals/<%= @meal.id %>" method="post">
+  <input type="hidden" id="hidden" name="_method" value="PATCH">
+
+  <label for="name">Meal name: <%= @meal.name %></label>
+  <input type="text" name="name" id="name">
+  <br></br>
+
+  <label for="calories">Calories: <%= @meal.calories %></label>
+  <input type="integer" name="calories" id="calories">
+  <br></br>
+
+  <input type="submit" value="Edit Meal">
+</form>
+
+<br></br>
+<a href="/meals">Back</a>
