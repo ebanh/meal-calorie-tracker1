@@ -1,20 +1,24 @@
 
 <!doctype html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
     <title>Meal-Calorie Tracker</title>
-    <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   </head>
   <body>
 
     <nav>
+      <div class="container">
       <% if logged_in? %>
-        &nbsp; Welcome <%= current_user.username %>
+        Welcome <%= current_user.username %>
       <% end %>
+      </div>
     </nav>
 
-    <div class="container">
+    <div class="container wrapper clearfix">
       <h1>Meal-Calorie Tracker</h1>
 
       <% if flash.has?(:message) %>
@@ -26,8 +30,5 @@
       <%= yield %>
 
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   </body>
 </html>

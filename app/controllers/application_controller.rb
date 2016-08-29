@@ -8,13 +8,12 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
-    set :session_secret, "golfclubsaregreat"
+    set :session_secret, "pizzaisgoodforyou"
   end
 
   get '/' do
     if logged_in?
-      @user = current_user
-      erb :index
+      redirect to "/#{current_user.slug}"
     else
       redirect to "/login"
     end
@@ -40,10 +39,17 @@ class ApplicationController < Sinatra::Base
      def redirect_if_incorrect_user(user)
        if user != current_user
          flash[:message] = "You are not allowed to access another user's account."
-         redirect to "/users/#{current_user.slug}"
+         redirect to "/#{current_user.slug}"
        end
      end
 
-
+     def list_meals_by_meal_time(meal)
+       meals = []
+       current_user.days.each do |day|
+         if day.meal_time == meal
+           meals << day.meals
+         end
+       end
+     end
   end
 end

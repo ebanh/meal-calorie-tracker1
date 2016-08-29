@@ -1,18 +1,11 @@
 require 'pry'
 class UserController < ApplicationController
 
-  get "/users/:slug" do
-    redirect_if_not_logged_in
-    @user = User.find_by_slug(params[:slug])
-    redirect_if_incorrect_user(@user)
-    erb :"/users/show"
-  end
-
   get '/login' do
     if !logged_in?
       erb :"/users/login"
     else
-      redirect to "/users/#{current_user.slug}"
+      redirect to "/#{current_user.slug}"
     end
   end
 
@@ -20,7 +13,7 @@ class UserController < ApplicationController
     user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect to "/users/#{user.slug}"
+      redirect to "/#{user.slug}"
     else
       redirect to "/login"
     end
@@ -28,7 +21,7 @@ class UserController < ApplicationController
 
   get '/signup' do
     if logged_in?
-      redirect to "/users/#{current_user.slug}"
+      redirect to "/#{current_user.slug}"
     else
       erb :"/users/signup"
     end
@@ -38,7 +31,7 @@ class UserController < ApplicationController
     user = User.create(params)
     session[:user_id] = user.id
     if user.save
-      redirect to "/users/#{user.slug}"
+      redirect to "/#{user.slug}"
     else
       redirect to "/signup"
     end
@@ -47,6 +40,19 @@ class UserController < ApplicationController
   get '/logoff' do
     session.clear
     redirect to "/login"
+  end
+
+  get "/:slug" do
+    redirect_if_not_logged_in
+    @user = User.find_by_slug(params[:slug])
+    redirect_if_incorrect_user(@user)
+    @total_calories = 0
+    @user.days.each do |day|
+      if day.date.strftime("%m%d%y") == Time.now.strftime("%m%d%y")
+        @total_calories += day.calories
+      end
+    end
+  erb :"/users/show"
   end
 
 end

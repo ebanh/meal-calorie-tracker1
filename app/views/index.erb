@@ -1,3 +1,16 @@
 <h4>Welcome to the Daily meal and calorie tracker!</h4>
 
-<a href="logoff"><h6>Log off</h6></a>
+Daily Calorie count
+<br></br>
+Day: <%= Time.now.strftime("%B %e, %Y") %>
+<br>
+Current calorie count: <%= @total_calories %>
+<br></br>
+
+
+
+Previous Days
+<br></br>
+Add day
+<br></br>
+<a href="/logoff"><h6>Log off</h6></a>
