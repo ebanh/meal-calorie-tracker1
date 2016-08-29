@@ -1,16 +1,46 @@
-<h3>Connected to your personal show page</h3>
-
-Daily Calorie count
-<br></br>
-Day: <%= Time.now.strftime("%B %e, %Y") %>
+<h3>Daily Calorie count</h3>
 <br>
-Current calorie count: <%= @total_calories %>
+
+<b>Day:</b> <i><%= Time.now.strftime("%B %e, %Y") %></i>
+<br>
+<b>Current calorie count:</b> <i><b><%= @total_calories %></b></i>
 <br></br>
 
+<b>Breakfast</b>
+<br>
+<% @breakfast_meals.each do |meal| %>
+  <i><%= meal.name %> - <%= meal.calories %></i>
+  <br>
+<% end %>
+<br>
 
+<b>Lunch</b>
+<br>
+<% @lunch_meals.each do |meal| %>
+  <i><%= meal.name %> - <%= meal.calories %></i>
+  <br>
+<% end %>
+<br>
+
+<b>Dinner</b>
+<br>
+<% @dinner_meals.each do |meal| %>
+  <i><%= meal.name %> - <%= meal.calories %></i>
+  <br>
+<% end %>
+<br>
+
+<b>Snacks</b>
+<br>
+<% @snack_meals.each do |meal| %>
+  <i><%= meal.name %> - <%= meal.calories %></i>
+  <br>
+<% end %>
+<br>
 
 Previous Days
 <br></br>
-Add day
+<a href="/<%= current_user.slug %>/new">Create a meal</a>
+<br></br>
 
 <a href="/logoff">Log off</a>

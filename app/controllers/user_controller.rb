@@ -46,12 +46,11 @@ class UserController < ApplicationController
     redirect_if_not_logged_in
     @user = User.find_by_slug(params[:slug])
     redirect_if_incorrect_user(@user)
-    @total_calories = 0
-    @user.days.each do |day|
-      if day.date.strftime("%m%d%y") == Time.now.strftime("%m%d%y")
-        @total_calories += day.calories
-      end
-    end
+    @total_calories = total_calories_in_a_day(@user, Time.now)
+    @breakfast_meals = meals_in_a_day(@user, Time.now, "Breakfast")
+    @lunch_meals = meals_in_a_day(@user, Time.now, "Lunch")
+    @dinner_meals = meals_in_a_day(@user, Time.now, "Dinner")
+    @snack_meals = meals_in_a_day(@user, Time.now, "Snack")
   erb :"/users/show"
   end
 

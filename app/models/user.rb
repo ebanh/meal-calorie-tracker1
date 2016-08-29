@@ -7,4 +7,5 @@ class User < ActiveRecord::Base
   validates_presence_of :password
 
   has_many :days
+  has_many :meals, through: :days
 end

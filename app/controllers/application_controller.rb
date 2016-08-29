@@ -43,13 +43,31 @@ class ApplicationController < Sinatra::Base
        end
      end
 
-     def list_meals_by_meal_time(meal)
-       meals = []
-       current_user.days.each do |day|
-         if day.meal_time == meal
-           meals << day.meals
+     def meals_in_a_day(user, date_requested, meal_time_requested)
+       days_returned = []
+       user.days.collect do |day|
+         if day.date.strftime("%m%d%y") == date_requested.strftime("%m%d%y") && day.meal_time == meal_time_requested
+           days_returned << day
          end
        end
+       meals_returned(days_returned)
      end
+
+     def meals_returned(days)
+       days.collect { |day| day.meals }.flatten
+     end
+
+     def total_calories_in_a_day(user, date)
+       total_calories = 0
+       user.days.each do |day|
+         if day.date.strftime("%m%d%y") == date.strftime("%m%d%y")
+            day.meals.each do |meal|
+              total_calories += meal.calories
+            end
+         end
+       end
+       total_calories
+     end
+
   end
 end

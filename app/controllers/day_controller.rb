@@ -13,7 +13,12 @@ class DayController < ApplicationController
   end
 
   post "/days" do
-    current_user.days.create(params)
+    if (params[:meal][:name].empty? || params[:meal][:calories].empty?) && params[:day][:meal_ids].empty?
+      flash[:message] = "Meal information incomplete."
+      redirect to "/#{current_user.slug}/new"
+    end
+    day = current_user.days.create(params[:day])
+    day.meals.create(params[:meal])
 
     redirect to "/#{current_user.slug}"
   end
