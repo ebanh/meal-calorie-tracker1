@@ -1,0 +1,47 @@
+<%require 'pry' %>
+<br>
+<h4>Edit the meal day and/or time</h4>
+<br>
+<form action="/days/<%= @day.id %>" method="post">
+  <input type="hidden" id="hidden" name="_method" value="PATCH">
+  <label for="date">Date: </label>
+  <input type="date" name="day[date]" id="date" value="<%= @day.date %>" required>
+  <br></br>
+
+  <input type="radio" name="day[meal_time]" value="Breakfast" id="breakfast"
+  <%= "checked" if @day.meal_time == "Breakfast" %>>
+  <label for="breakfast">Breakfast</label>
+
+  <input type="radio" name="day[meal_time]" value="Lunch" id="lunch"
+  <%= "checked" if @day.meal_time == "Lunch" %>>
+  <label for="lunch">Lunch</label>
+
+  <input type="radio" name="day[meal_time]" value="Dinner" id="dinner"
+  <%= "checked" if @day.meal_time == "Dinner" %>>
+  <label for="dinner">Dinner</label>
+
+  <input type="radio" name="day[meal_time]" value="Snack" id="snack"
+  <%= "checked" if @day.meal_time == "Snack" %>>
+  <label for="snack">Snack</label>
+
+  <br></br>
+  <h4>Choose or Create meal:</h4>
+  <br>
+  <% @user.meals.each do |meal| %>
+    <input type="checkbox" name="day[meal_ids][]" value="<%= meal.id %>"
+    <%= 'checked' if @day.meals.include?(meal) %>>
+    <%= meal.name %> - <%= meal.calories %> calories</input>
+  <% end %>
+  <br></br>
+  <label for="new_meal">Name:</label>
+  <input type="text" name="meal[name]" id="new_meal">
+  <br></br>
+  <label for="new_calories">Calories:</label>
+  <input type="text" name="meal[calories]" id="new_calories">
+
+
+  <br></br>
+  <input type="submit" value="Edit Meal">
+</form>
+
+<h6><a href="/<%= @day.user.slug %>">Return</a></h6>

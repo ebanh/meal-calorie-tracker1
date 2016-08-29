@@ -51,7 +51,20 @@ class UserController < ApplicationController
     @lunch_meals = meals_in_a_day(@user, Time.now, "Lunch")
     @dinner_meals = meals_in_a_day(@user, Time.now, "Dinner")
     @snack_meals = meals_in_a_day(@user, Time.now, "Snack")
-  erb :"/users/show"
+    erb :"/users/show"
+  end
+
+  get "/days/:id/:slug" do
+    redirect_if_not_logged_in
+    @day = Day.find(params[:id])
+    @user = User.find_by_slug(params[:slug])
+    redirect_if_incorrect_user(@user)
+    @total_calories = total_calories_in_a_day(@user, @day.date)
+    @breakfast_meals = meals_in_a_day(@user, @day.date, "Breakfast")
+    @lunch_meals = meals_in_a_day(@user, @day.date, "Lunch")
+    @dinner_meals = meals_in_a_day(@user, @day.date, "Dinner")
+    @snack_meals = meals_in_a_day(@user, @day.date, "Snack")
+    erb :"/users/show"
   end
 
 end

@@ -1,15 +1,28 @@
 require 'pry'
 class DayController < ApplicationController
 
-  get "/days" do
+  get "/:slug/meals" do
+    redirect_if_not_logged_in
+    @user = User.find_by_slug(params[:slug])
+    redirect_if_incorrect_user(@user)
+
     erb :"/days/index"
   end
 
   get "/:slug/new" do
     redirect_if_not_logged_in
-    @user = current_user
+    @user = User.find_by_slug(params[:slug])
+    redirect_if_incorrect_user(@user)
 
     erb :"/days/new"
+  end
+
+  get '/days/:id/edit' do
+    redirect_if_not_logged_in
+    @day = Day.find(params[:id])
+    @user = @day.user
+    redirect_if_incorrect_user(@user)
+    erb :"/days/edit"
   end
 
   post "/days" do
@@ -21,6 +34,17 @@ class DayController < ApplicationController
     day.meals.create(params[:meal])
 
     redirect to "/#{current_user.slug}"
+  end
+
+  patch "/days/:id" do
+    day = Day.find(params[:id])
+    day.update(params[:day])
+
+    if !params[:meal][:name].empty? && !params[:meal][:calories].empty?
+      day.meals.create(params[:meal])
+    end
+
+    redirect to "/#{current_user.slug}/meals"
   end
 
 end

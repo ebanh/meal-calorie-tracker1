@@ -8,14 +8,8 @@ class MealController < ApplicationController
   get '/meals/:id/edit' do
     redirect_if_not_logged_in
     @meal = Meal.find(params[:id])
-    redirect_if_incorrect_user(@meal.user)
+    redirect_if_incorrect_user(@meal.users.first)
     erb :"/meals/edit"
-  end
-
-  get '/meals' do
-    redirect_if_not_logged_in
-    @user = current_user
-    erb :"/meals/index"
   end
 
   post '/meals' do
@@ -33,7 +27,7 @@ class MealController < ApplicationController
     meal.calories = params[:calories] unless params[:calories].empty?
     meal.save
 
-    redirect to "/meals"
+    redirect to "/#{current_user.slug}/meals"
   end
 
 end
