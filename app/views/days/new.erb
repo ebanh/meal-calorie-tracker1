@@ -1,4 +1,4 @@
-<br>
+<h6><a href="/<%= @user.slug %>">Return</a></h6>
 <h4>Add the meal day and time</h4>
 <br>
 <form action="/days" method="post">
@@ -19,7 +19,7 @@
   <label for="snack">Snack</label>
 
   <br></br>
-  <h4>Choose or Create meal:</h4>
+  <h4>Choose or Create a meal item:</h4>
   <br>
   <% @user.meals.each do |meal| %>
     <input type="checkbox" name="day[meal_ids][]" value="<%= meal.id %>">
@@ -36,5 +36,3 @@
   <br></br>
   <input type="submit" value="Create Meal">
 </form>
-
-<h6><a href="/<%= @user.slug %>">Return</a></h6>

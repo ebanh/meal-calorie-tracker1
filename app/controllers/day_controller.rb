@@ -5,6 +5,7 @@ class DayController < ApplicationController
     redirect_if_not_logged_in
     @user = User.find_by_slug(params[:slug])
     redirect_if_incorrect_user(@user)
+    @days = @user.days.sort_by { |d| d.date }.reverse
 
     erb :"/days/index"
   end
@@ -30,7 +31,7 @@ class DayController < ApplicationController
       flash[:message] = "Meal information incomplete."
       redirect to "/#{current_user.slug}/new"
     end
-    day = current_user.days.create(params[:day])
+    day = current_user.days.find_by(params[:date], params[:meal_time]) || current_user.days.create(params[:day])
     day.meals.create(params[:meal])
 
     redirect to "/#{current_user.slug}"
@@ -45,6 +46,14 @@ class DayController < ApplicationController
     end
 
     redirect to "/#{current_user.slug}/meals"
+  end
+
+  delete "/days/:id/delete" do
+    redirect_if_not_logged_in
+    day = Day.find(params[:id])
+    redirect_if_incorrect_user(day.user)
+    day.destroy
+    redirect to "/#{current_user.slug}"
   end
 
 end

@@ -1,14 +1,15 @@
-<br>
-<h4>Days list</h4>
 
-<ul><% @user.days.sort.each do |day| %>
-  <a href="/days/<%= day.id %>/<%= @user.slug %>"><%= day.date %></a> - <%= day.meal_time %> <a href="/days/<%=day.id%>/edit"><font size=1>edit</font></a>
+<h5><a href="/<%= current_user.slug %>">Return</a></h5>
+<h4>Meals by Day:</h4>
+
+<ul><% @days.each do |day| %>
+
+      <a href="/days/<%= day.id %>/<%= @user.slug %>"><%= day.date %></a>
+
+      - <%= day.meal_time %> <font size=1><a href="/days/<%= day.id %>/edit"><i>edit</i></a></font>
       <ul><% day.meals.each do |meal| %>
-          <li> <%= meal.name %> - <%= meal.calories %> <a href="/meals/<%= meal.id %>/edit"><font size=1>edit</font></a></li>
+          <li> <%= meal.name %> - <%= meal.calories %>
+            <font size=1><a href="/meals/<%= meal.id %>/edit"><i>edit</i></a></font></li>
    <% end %></ul>
    <br>
 <% end %></ul>
-
-<h6>Create a <a href="/meals/new">Meal</a></h6>
-
-<h5><a href="/<%= @user.slug %>">Return</a></h5>

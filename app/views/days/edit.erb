@@ -1,7 +1,6 @@
-<%require 'pry' %>
-<br>
 <h4>Edit the meal day and/or time</h4>
-<br>
+<h6><a href="/<%= current_user.slug %>">Return</a></h6>
+
 <form action="/days/<%= @day.id %>" method="post">
   <input type="hidden" id="hidden" name="_method" value="PATCH">
   <label for="date">Date: </label>
@@ -25,7 +24,7 @@
   <label for="snack">Snack</label>
 
   <br></br>
-  <h4>Choose or Create meal:</h4>
+  <h4>Choose or Create a meal item:</h4>
   <br>
   <% @user.meals.each do |meal| %>
     <input type="checkbox" name="day[meal_ids][]" value="<%= meal.id %>"
@@ -44,4 +43,9 @@
   <input type="submit" value="Edit Meal">
 </form>
 
-<h6><a href="/<%= @day.user.slug %>">Return</a></h6>
+<b>OR</b>
+
+<form action="/days/<%= @day.id %>/delete" method="post">
+  <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete">
+</form>

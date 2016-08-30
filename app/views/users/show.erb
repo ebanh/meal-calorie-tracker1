@@ -1,7 +1,7 @@
 <h3>Daily Calorie count</h3>
-<br>
+<h5><a href="/<%= @user.slug %>/meals">All Meals</a></h5>
 
-<b>Day:</b> <i><%= Time.now.strftime("%B %e, %Y") %></i>
+<b>Day:</b> <i><%= @date.strftime("%B %e, %Y") %></i>
 <br>
 <b>Calorie count:</b> <i><b><%= @total_calories %></b></i>
 <br></br>
@@ -37,7 +37,3 @@
   <br>
 <% end %>
 <br>
-
-<h5><a href="/<%= @user.slug %>/meals">All Meals</a></h5>
-<h5><a href="/<%= @user.slug %>/new">Create a meal</a></h5>
-<h6><a href="/logoff"><b>Log off</b></a></h6>

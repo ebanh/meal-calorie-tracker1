@@ -69,5 +69,6 @@ class ApplicationController < Sinatra::Base
        total_calories
      end
 
+
   end
 end

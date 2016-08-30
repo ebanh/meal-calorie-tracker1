@@ -13,7 +13,8 @@ class MealController < ApplicationController
   end
 
   post '/meals' do
-    Meal.create(params)
+    Meal.find_by(params[:name]) || Meal.create(params)
+
     redirect to '/meals'
   end
 
@@ -28,6 +29,14 @@ class MealController < ApplicationController
     meal.save
 
     redirect to "/#{current_user.slug}/meals"
+  end
+
+  delete "/meals/:id/delete" do
+    redirect_if_not_logged_in
+    meal = Meal.find(params[:id])
+    redirect_if_incorrect_user(meal.users.first)
+    meal.destroy
+    redirect to "/#{current_user.slug}"
   end
 
 end

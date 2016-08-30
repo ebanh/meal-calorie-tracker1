@@ -4,22 +4,23 @@
   <head>
     <meta charset="UTF-8">
     <title>Meal-Calorie Tracker</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   </head>
   <body>
+    <% if logged_in? %>
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- <div> -->
+              <span class="navbar-brand">Welcome <%= current_user.username %></span>
+              <button type="button" class="btn btn-default navbar-btn" onclick="location.href='/<%= current_user.slug %>/new';">Create A Meal</button>
+              <button type="button" class="btn btn-default navbar-btn" onclick="location.href='/logoff';">Log off</button>
+          <!-- </div> -->
+       </div>
+      </nav>
+    <% end %>
 
-    <nav>
-      <div class="container">
-      <% if logged_in? %>
-        Welcome <%= current_user.username %>
-      <% end %>
-      </div>
-    </nav>
-
-    <div class="container wrapper clearfix">
-      <h1>Meal-Calorie Tracker</h1>
+    <div class="container-fluid">
+      <h2>Meal-Calorie Tracker</h2>
 
       <% if flash.has?(:message) %>
       <div class="alert alert-warning">
@@ -28,7 +29,7 @@
       <% end %>
 
       <%= yield %>
-
     </div>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
   </body>
 </html>

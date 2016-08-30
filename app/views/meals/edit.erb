@@ -1,4 +1,6 @@
 <h4> Edit your meal </h4>
+<a href="/<%= current_user.slug %>">Return</a>
+<br></br>
 <form action="/meals/<%= @meal.id %>" method="post">
   <input type="hidden" id="hidden" name="_method" value="PATCH">
 
@@ -13,5 +15,9 @@
   <input type="submit" value="Edit Meal">
 </form>
 
-<br></br>
-<a href="/meals">Back</a>
+<b>OR</b>
+
+<form action="/days/<%= @meal.id %>/delete" method="post">
+  <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete">
+</form>
